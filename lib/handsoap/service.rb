@@ -391,7 +391,7 @@ module Handsoap
     def debug(message = nil) #:nodoc:
       if @@logger
         if message
-          @@logger.puts(message)
+          @@logger.info(message)
         end
         if block_given?
           yield @@logger
@@ -414,7 +414,7 @@ module Handsoap
       end
       request.body = post_body
       debug do |logger|
-        logger.puts request.inspect
+        logger.info request.inspect
       end
       on_after_create_http_request(request)
       request
@@ -424,7 +424,7 @@ module Handsoap
     # There are various stages and hooks for each, so that you can override those in your service classes.
     def parse_http_response(response)
       debug do |logger|
-        logger.puts(response.inspect do |body|
+        logger.info(response.inspect do |body|
           Handsoap.pretty_format_envelope(body.force_encoding('utf-8')).chomp
         end)
       end
